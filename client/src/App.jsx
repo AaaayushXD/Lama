@@ -1,15 +1,17 @@
+import { RegisterForm } from "./Components/Auth/auth";
 import Home from "./Components/Home/homePage";
-import NavBar from "./Components/NavBar/navBar";
+import NavBar, { AuthNav } from "./Components/NavBar/navBar";
 
 function App() {
 
   return (
-      <div>
-        <NavBar />
-        <Home />
-      </div>
-    
-  )
+    <div>
+      <AuthNav />
+      {/* <NavBar /> */}
+      {/* <Home /> */}
+      <RegisterForm />
+    </div>
+  );
 }
 
 export default App

@@ -27,7 +27,8 @@ const UserSchema = new mongoose.Schema({
         default: []
     },
     location: String, 
-    education: String,
+  education: String,
+    phone: String,
     occupation: String,
 }, { timestamps: true });
 

@@ -6,7 +6,7 @@ import User from "../models/Users.js";
 // Registration 
 export const register = async (req, res) => {
     try {
-        const { fullName, email, password, picturePath, friends, location, education, occupation } = req.body;
+        const { fullName, email, password, picturePath, friends, location, education, phone , occupation } = req.body;
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = new User ({
@@ -17,6 +17,7 @@ export const register = async (req, res) => {
             friends,
             location,
             education,
+            phone,
             occupation
         })
         const savedUser = await newUser.save();
