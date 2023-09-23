@@ -45,7 +45,7 @@ export const AuthNav = (props) => {
 export const DarkToLight = () => {
   return (
     <div className="mx-4 cursor-pointer userIcon hover:text-[var(--bgText-dark)] bg-[var(--surface-dark)] p-3 rounded-full w-[50px] h-[50px] flex  items-center justify-center">
-      <span class="material-symbols-outlined text-3xl">dark_mode</span>
+      <span className="text-3xl material-symbols-outlined">dark_mode</span>
     </div>
   );
 }

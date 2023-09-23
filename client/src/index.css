@@ -5,6 +5,7 @@
 @import "tailwindcss/utilities";
 
 @layer base {
+  @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
   :root {
     --primary-dark: #39b2ad;
     --primary-light: #287d7d;
@@ -22,6 +23,20 @@
   body {
     background-color: var(--background-dark);
     overflow-x: hidden;
+    font-family: "Lato", sans-serif;
     color: var(--text-dark);
+  }
+  .registerBox, .loginBox {
+    background: rgba(58, 57, 57, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(57, 178, 173, 0.37); 
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .inputContainer:hover .inputBox,
+  .inputContainer:hover {
+    background-color: var(--navbar-dark);
   }
 }
