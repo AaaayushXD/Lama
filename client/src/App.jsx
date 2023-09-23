@@ -6,10 +6,10 @@ function App() {
 
   return (
     <div>
-      <AuthNav />
-      {/* <NavBar /> */}
-      {/* <Home /> */}
-      <RegisterForm />
+      {/* <AuthNav /> */}
+      <NavBar />
+      <Home />
+      {/* <RegisterForm /> */}
       {/* <LoginForm /> */}
     </div>
   );

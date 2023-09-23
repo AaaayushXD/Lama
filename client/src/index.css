@@ -6,19 +6,19 @@
 
 @layer base {
   @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
-  :root {
+  /* :root {
     --primary-dark: #39b2ad;
-    --primary-light: #287d7d;
-    --secondary-dark: #ff697d;
-    --secondary-light: #b34a61;
-    --background-dark: #121212;
-    --surface-dark: #282828;
-    --navbar-dark: #575757;
-    --border-dark: #3f3f3f;
-    --modal-dark: #717171;
-    --bgText-dark: #8b8b8b;
-    --text-dark: #f8f9fa;
-  }
+      --primary-light: #287d7d;
+      --secondary-dark: #ff697d;
+      --secondary-light: #b34a61;
+      --background-dark: #121212;
+      --surface-dark: #282828;
+      --navbar-dark: #575757;
+      --border-dark: #3f3f3f;
+      --modal-dark: #717171;
+      --bgText-dark: #8b8b8b;
+      --text-dark: #f8f9fa;
+  } */
 
   body {
     background-color: var(--background-dark);
@@ -26,9 +26,10 @@
     font-family: "Lato", sans-serif;
     color: var(--text-dark);
   }
-  .registerBox, .loginBox {
+  .registerBox,
+  .loginBox {
     background: rgba(58, 57, 57, 0.25);
-    box-shadow: 0 8px 32px 0 rgba(57, 178, 173, 0.37); 
+    box-shadow: 0 8px 32px 0 rgba(57, 178, 173, 0.37);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     border-radius: 10px;
@@ -38,5 +39,84 @@
   .inputContainer:hover .inputBox,
   .inputContainer:hover {
     background-color: var(--navbar-dark);
+  }
+
+  /* Themes */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary-dark: #39b2ad;
+      --primary-light: #287d7d;
+      --secondary-dark: #ff697d;
+      --secondary-light: #b34a61;
+      --background-dark: #121212;
+      --surface-dark: #282828;
+      --navbar-dark: #575757;
+      --border-dark: #3f3f3f;
+      --modal-dark: #717171;
+      --bgText-dark: #8b8b8b;
+      --text-dark: #f8f9fa;
+    }
+
+    :root[data-theme="dark"] {
+      --primary-dark: #39b2ad;
+      --primary-light: #287d7d;
+      --secondary-dark: #ff697d;
+      --secondary-light: #b34a61;
+      --background-dark: #121212;
+      --surface-dark: #282828;
+      --navbar-dark: #575757;
+      --border-dark: #3f3f3f;
+      --modal-dark: #717171;
+      --bgText-dark: #8b8b8b;
+      --text-dark: #f8f9fa;
+    }
+
+    :root[data-theme="light"] {
+      --primary-dark: #a6e1da;
+      --secondary-dark: #ffb2c2;
+      --background-dark: #f8f8f8;
+      --surface-dark: #ffffff;
+      --navbar-dark: #e0e0e0;
+      --border-dark: #b0b0b0;
+      --modal-dark: #d1d1d1;
+      --bgText-dark: #333333;
+      --text-dark: #1a1a1a;
+    }
+
+    :root[data-theme="retro"] {
+      --primary-dark: #5af7d5;
+      --secondary-dark: #c55c47;
+      --background-dark: #fefae0;
+      --surface-dark: #faedcd;
+      --navbar-dark: #d4a373;
+      --border-dark: #5d5d5d;
+      --modal-dark: #f2e2c6;
+      --bgText-dark: #5d5d5d;
+      --text-dark: #252525;
+    }
+
+    :root[data-theme="cool"] {
+      --primary-dark: #5af7d5;
+      --secondary-dark: #d45d5d;
+      --background-dark: #c0f0fa;
+      --surface-dark: #96e2f0;
+      --navbar-dark: #65c8db;
+      --border-dark: #0096c7;
+      --modal-dark: #34a3df;
+      --bgText-dark: #333333;
+      --text-dark: #333333;
+    }
+
+    :root[data-theme="pink"] {
+      --primary-dark: #6bffe6;
+      --secondary-dark: #df6161;
+      --background-dark: #ffe5ec;
+      --surface-dark: #ffc2d1;
+      --navbar-dark: #ff8fab;
+      --border-dark: #ffb3c6;
+      --modal-dark: #fb6f92;
+      --bgText-dark: #444444;
+      --text-dark: #1d1d1d;
+    }
   }
 }
