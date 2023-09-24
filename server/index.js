@@ -8,9 +8,12 @@ import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
-import { error } from "console";
-import authRoutes from "./routes/auth.js"
+import authRoutes from "./routes/auth.js";
 import { register } from "./controllers/auth.js";
+import userRoutes from "./routes/users.js";
+import postRoutes from "./routes/posts.js";
+import { verifyToken } from "./middleware/authorization.js";
+import { createPost } from "./controllers/posts.js";
 
 // Configuration
 const __filename = fileURLToPath(import.meta.url);
@@ -39,18 +42,25 @@ const upload = multer({ storage });
 
 //Authentication
 app.post("/auth/register", upload.single("picture"), register);
+app.post("/posts", verifyToken, upload.single("picture", createPost));
 
 // Routes
-app.post("/auth", authRoutes)
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 // Mongoose setup
 const PORT = process.env.PORT || 6001;
 mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
-    useUnifiedTopolgy: true,
+    dbName: "lamaDB",
   })
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-  }).catch(()=> {console.log(`Didnt connect to the server. ${error}`)})
+  })
+  .catch((err) => console.log(`Didnt connect to the server. ${err}`));
 
+app.get("/test", (req, res) => {
+  res.json("All ok.");
+});
