@@ -55,6 +55,7 @@
       --modal-dark: #717171;
       --bgText-dark: #8b8b8b;
       --text-dark: #f8f9fa;
+      --overlay-dark: #121212c9;
     }
 
     :root[data-theme="dark"] {

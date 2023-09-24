@@ -5,6 +5,7 @@ import {
   SubmitButton,
 } from "./authComponent";
 import ROBOTIMG from "../../assets/registrationPagePics.png";
+import { AuthNav } from "../NavBar/navBar";
 
 export const RegisterForm = () => {
   return (
@@ -66,7 +67,7 @@ export const RegisterForm = () => {
             <p className="p-2 my-2 text-center">
               Already have an account? {" "}
               <a
-                href="/login"
+                href="/"
                 className="text-[var(--primary-dark)] cursor-pointer hover:text-[var(--primary-light)]"
               >
                 Login Here.
@@ -110,3 +111,23 @@ export const LoginForm = () => {
     </div>
   );
 };
+
+
+export const RegisterPage = () => {
+  return (
+    <div className="w-screen min-h-screen">
+      <AuthNav />
+      <RegisterForm />
+    </div>
+  )
+}
+
+
+export const LoginPage = () => {
+  return (
+    <div className="w-screen min-h-screen">
+      <AuthNav />
+      <LoginForm />
+    </div>
+  )
+}
