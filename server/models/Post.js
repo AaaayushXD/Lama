@@ -12,15 +12,15 @@ const PostSchema = new mongoose.Schema(
       min: 5,
       max: 50,
     },
-    location: String,
+    address: String,
     description: String,
     picturePath: String,
     userPicturePath: String,
-    like: {
+    likes: {
       type: Map,
       of: Boolean,
     },
-    comment: {
+    comments: {
       type: Array,
       default: [],
     },

@@ -4,15 +4,67 @@ import LOGO2 from "../../assets/avatar/avatar2.png";
 import LOGO3 from "../../assets/avatar/avatar3.png";
 import LOGO4 from "../../assets/avatar/avatar4.png";
 import LOGO5 from "../../assets/avatar/avatar5.png";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+export const UserWidget = ({ userId, picturePath }) => {
+  console.log(userId, picturePath);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const token = useSelector((state) => state.token);
+
+  const getUser = async () => {
+    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const data = await response.json();
+    console.log(data);
+    setUser(data);
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  if (!user) {
+    return null;
+  }
+
+  const { fullName, address, occupation, education, phone, friends } = user;
+
+  return (
+    <div className="hidden lg:flex p-4 m-2 infoContainer h-full w-[20%] bg-[var(--surface-dark)] rounded-lg lg:flex-wrap overflow-wrap-break-word">
+      <div className="mainUser">
+        <NameContainer
+          click={() => navigate(`/profile/${userId}`)} 
+          logo={picturePath}
+          imgSize="50"
+          name={fullName}
+        />
+      </div>
+      <div className="userAccInfo text-xl text-[var(--bgText-dark)] flex flex-col w-full mt-4 justify-center items-center">
+        <InfoDetail detail={education} icon="school" />
+        <InfoDetail detail={occupation} icon="work" />
+        <InfoDetail detail={phone} icon="phone" />
+        <InfoDetail detail={address} icon="pin_drop" />
+      </div>
+    </div>
+  );
+};
 
 export const NameContainer = (props) => {
   return (
-    <div className="w-full h-full nameContainer">
+    <div
+      className="w-full h-full cursor-pointer nameContainer"
+      onClick={props.click}
+    >
       <div className="flex items-center w-full h-full nameContent">
         <img
-          src={props.logo}
+          src={`http://localhost:3001/assets/${props.logo}`}
           style={{ width: `${props.imgSize}px`, height: `${props.imgSize}px` }}
-          className="mx-3 my-1"
+          className="object-cover mx-3 my-1"
         />
         <p className="text-xl"> {props.name}</p>
       </div>
@@ -20,28 +72,14 @@ export const NameContainer = (props) => {
   );
 };
 
-export const UserInfo = (props) => {
-  return (
-    <div className="p-4 m-2 infoContainer h-full w-[20%] bg-[var(--surface-dark)] rounded-lg">
-      <div className="mainUser">
-        <NameContainer name="Aayush Lamichhane" imgSize="50" logo={LOGO1} />
-      </div>
-      <div className="userAccInfo text-xl text-[var(--bgText-dark)] flex flex-col w-full mt-4 justify-center items-center">
-        <InfoDetail detail="Texas College of Management & IT" />
-        <InfoDetail detail="MERN developer" />
-        <InfoDetail detail="Kathmandu, Nepal" />
-        <InfoDetail detail="+977 - 9813425299" />
-        <InfoDetail detail="aayushlamichhane2911 @gmail.com" />
-      </div>
-    </div>
-  );
-};
-
 export const InfoDetail = (props) => {
   return (
-    <div className="flex flex-col w-full mt-4 text-xl border-b border-[var(--border-dark)] userAccInfo">
-      <div className="pl-2 mb-2">
-        <p>{props.detail}</p>
+    <div className="flex w-full mt-4 text-xl border-b border-[var(--border-dark)] userAccInfo gap-3 ">
+      <span className="material-symbols-outlined w-[10%]">{props.icon}</span>
+      <div className="w-[80%] flex flex-wrap pl-2 mb-2 ">
+        <p className="w-full" style={{ wordWrap: "break-word" }}>
+          {props.detail}
+        </p>
       </div>
     </div>
   );
@@ -49,7 +87,7 @@ export const InfoDetail = (props) => {
 
 export const OtherUsers = (props) => {
   return (
-    <div className="w-[20%] h-full bg-[var(--surface-dark)] p-5 m-2 rounded-lg">
+    <div className="hidden md:block w-[20%] h-full bg-[var(--surface-dark)] p-5 m-2 rounded-lg">
       <Friends />
       <DiscoverNewFriends />
     </div>
@@ -110,3 +148,30 @@ export const FollowedFriends = (props) => {
   );
 };
 
+export const SocialIcons = (props) => {
+  return (
+    <div className=" socialIconsContainer flex w-full mt-2 py-2 px-1 text-xl border-b border-[var(--border-dark)] gap-3 text-[var(--modal-dark)] justify-start items-center cursor-pointer">
+      <i className={`fa-brands fa-${props.iconLogoName}`}></i>
+      <div>
+        <p>{props.iconName}</p>
+      </div>
+    </div>
+  );
+};
+
+export const ProfilePicture = (props) => {
+  return (
+    <div
+      onClick={() => navigate(`/profile/${props.userId}`)}
+      className="overflow-hidden rounded-full"
+      style={{ width: `${props.imgSize}px`, height: `${props.imgSize}px` }}
+    >
+      <img
+        src={`http://localhost:3001/assets/${props.picturePath}`}
+        style={{ width: `${props.imgSize}px`, height: `${props.imgSize}px` }}
+        className="object-cover rounded-full"
+      />
+    </div>
+  );
+}
+          

@@ -125,7 +125,7 @@ export const AuthenticationForm = () => {
         setFieldValue,
         resetForm,
       }) => (
-        <form onSubmit={handleSubmit} className="flex p-5 mt-8">
+        <form onSubmit={handleSubmit} className="flex items-center justify-center p-5 mt-8">
           <div className="w-full lg:w-[55%] h-full">
             {isRegister && (
               <>
@@ -211,7 +211,7 @@ export const AuthenticationForm = () => {
                         ) : (
                           <div className="flex items-center justify-between gap-4">
                             {values.picture.name}
-                            <span class="material-symbols-outlined">edit</span>
+                            <span className="material-symbols-outlined">edit</span>
                           </div>
                         )}
                       </div>
