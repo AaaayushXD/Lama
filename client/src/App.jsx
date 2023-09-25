@@ -1,4 +1,4 @@
-import { LoginPage, RegisterPage } from "./Components/Auth/auth";
+import { AuthPage } from "./Components/Auth/auth";
 import Home from "./Components/Home/homePage";
 import NavBar, { AuthNav } from "./Components/NavBar/navBar";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
@@ -11,8 +11,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/" element={<AuthPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/profile/:userId" element={<Profile />} />
         </Routes>

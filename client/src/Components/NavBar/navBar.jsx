@@ -40,7 +40,10 @@ const NavBar = () => {
         </span>
         <span
           className="text-4xl material-symbols-outlined text-[var(--secondary-dark)] hover:text-[var(--secondary-light)]"
-          onClick={() => dispatch(setLogout())}
+          onClick={() => {
+            dispatch(setLogout());
+            navigate("/");
+          }}
         >
           logout
         </span>
@@ -81,7 +84,10 @@ const NavBar = () => {
             </div>
             <div
               className="flex items-center justify-center gap-2 cursor-pointer w-[80%] border-b p-4 border-b-[var(--modal-dark)] hover:bg-[var(--surface-dark)] rounded-2xl hover:text-[var(--secondary-dark)]"
-              onClick={() => setToggleMenu(!toggleMenu)}
+              onClick={() => {
+                dispatch(setLogout());
+                navigate("/");
+              }}
             >
               <span className="text-4xl material-symbols-outlined">Logout</span>
               <p>Log Out</p>
@@ -108,13 +114,7 @@ export const AuthNav = (props) => {
   return (
     <div className="navContainer h-[80px] w-full flex justify-between items-center">
       <div className="mx-4 cursor-pointer logo">
-        <a href="/">
-          <img
-            src={LOGO}
-            style={{ width: "50px", height: "50px" }}
-            alt="logo"
-          />
-        </a>
+        <img src={LOGO} style={{ width: "50px", height: "50px" }} alt="logo" />
       </div>
       <DarkToLight />
     </div>

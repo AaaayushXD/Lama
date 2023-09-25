@@ -1,26 +1,27 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import user from "../models/Users.js";
 import User from "../models/Users.js";
 
 // Registration 
 export const register = async (req, res) => {
     try {
-        const { fullName, email, password, picturePath, friends, location, education, phone , occupation } = req.body;
+        const { fullName, email, password, picturePath, friends, address, education, phone , occupation } = req.body;
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(password, salt);
         const newUser = new User ({
             fullName,
             email,
-            hashedPassword,
+            password: hashedPassword,
             picturePath,
             friends,
-            location,
+            address,
             education,
             phone,
             occupation
         })
+        console.log(newUser);
         const savedUser = await newUser.save();
+        console.log(savedUser);
         res.status(201).json(savedUser);
     } catch (err) {
         res.status(500).json({error: err.message});
@@ -39,7 +40,7 @@ export const login = async (req, res) => {
         
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
         delete user.password;
-        res.status(200).json({toke, user});
+        res.status(200).json({token, user});
     } catch (err) {
         res.status(500).json({error:err.message})
     }

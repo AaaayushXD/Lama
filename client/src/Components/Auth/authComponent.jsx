@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-export const PasswordInput = () => {
+export const PasswordInput = (props) => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   function toggleVisibility() {
     setPasswordVisible((prevState) => !prevState);
@@ -16,6 +16,11 @@ export const PasswordInput = () => {
         className="w-full h-[50px] bg-[var(--surface-dark)] outline-none pl-7 py-2 text-l focus:bg-[var(--modal-dark)] inputBox rounded-lg"
         autoComplete="off"
         name="password"
+        onBlur={props.blur}
+        onChange={props.change}
+        value={props.value}
+        error={props.error}
+        helperText={props.helperText}
         required
       />
       <span className="material-symbols-outlined text-l text-[var(--primary-dark)] absolute top-[41px]">
@@ -52,6 +57,11 @@ export const InputField = (props) => {
         className="w-full h-[50px] bg-[var(--surface-dark)] outline-none pl-7 py-2 text-l focus:bg-[var(--modal-dark)] inputBox rounded-lg"
         autoComplete="off"
         name={props.id}
+        onBlur={props.blur}
+        onChange={props.change}
+        value={props.value}
+        error={props.error}
+        helperText = {props.helperText}
         required
       />
       <span className="material-symbols-outlined text-l text-[var(--primary-dark)] absolute top-[41px]">
@@ -83,7 +93,7 @@ export const InputFile = () => {
         id="file_input"
         type="file"
         accept="image/*"
-        name="file"
+        name="picture"
       />
     </div>
   );
