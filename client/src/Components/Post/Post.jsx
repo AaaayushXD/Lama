@@ -19,7 +19,7 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/feeds`,
+      `http://localhost:3001/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -47,7 +47,7 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
           description,
           address,
           picturePath,
-          userPicturepath,
+          userPicturePath,
           likes,
           comments,
         }) => (
@@ -59,7 +59,7 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
             description={description}
             address={address}
             picturePath={picturePath}
-            userPicturepath={userPicturepath}
+            userPicturePath={userPicturePath}
             likes={likes}
             comments={comments}
           />
@@ -68,6 +68,7 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
     </div>
   );
 };
+
 
 export const MainContainer = () => {
   const { _id, picturePath } = useSelector((state) => state.user);

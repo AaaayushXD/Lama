@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const UserWidget = ({ userId, picturePath }) => {
-  console.log(userId, picturePath);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const token = useSelector((state) => state.token);
@@ -20,7 +19,8 @@ export const UserWidget = ({ userId, picturePath }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
-    console.log(data);
+
+    
     setUser(data);
   };
 

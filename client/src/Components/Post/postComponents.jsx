@@ -8,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { setPost } from "../state";
 
 export const UpdatePost = ({ picturePath }) => {
-  const { _id } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [post, setPost] = useState("");
+  const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
 
   const handlePost = async () => {
@@ -23,7 +23,6 @@ export const UpdatePost = ({ picturePath }) => {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
     }
-    console.log(formData);
 
     const response = await fetch(`http://localhost:3001/posts`, {
       method: "POST",
@@ -32,7 +31,6 @@ export const UpdatePost = ({ picturePath }) => {
     });
 
     const posts = await response.json();
-    console.log(posts);
     dispatch(setPosts({ posts }));
     setImage(null);
     setPost("");
@@ -126,7 +124,7 @@ export const UserPostContainer = ({
   description,
   address,
   picturePath,
-  userPicturepath,
+  userPicturePath,
   likes,
   comments,
 }) => {
@@ -134,15 +132,10 @@ export const UserPostContainer = ({
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
   const loggedInUserId = useSelector((state) => state.user._id);
-  console.log(loggedInUserId);
-  const isLiked = likes && likes[loggedInUserId] ? true : false;
-  console.log(isLiked);
-  // const likeCount = likes ? Object.keys(likes.length) : 0;
-  const likeCount = 0;
-  console.log(address);
-
+  const isLiked = likes[loggedInUserId];
+  const likeCount = Object.keys(likes).length;
   const patchLike = async () => {
-    const response = await fetch(`http:localhost:3001/posts/${postId}/like`, {
+    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -160,7 +153,7 @@ export const UserPostContainer = ({
         <UserFriend
           friendId={postUserId}
           name={fullName}
-          userPicturePath={userPicturepath}
+          userPicturePath={userPicturePath}
         />
         <UserPostContent caption={description} picturePath={picturePath} />
         <PostReaction
@@ -171,13 +164,12 @@ export const UserPostContainer = ({
           commentLength={comments ? comments.length : 0}
         />
         {isComment && (
-          <div className="mt-3 h-40px text-l">
+          <div className="my-3 h-40px text-l">
             {comments.map((comment, i) => (
               <div
                 key={`${fullName}-${i}`}
-                className="border-b border-b-[var(--modal-dark)]"
               >
-                <p>{comment}</p>
+                <p className="my-1 p-2 bg-[var(--surface-dark)] rounded-lg">{comment}</p>
               </div>
             ))}
           </div>
@@ -232,13 +224,14 @@ export const UserFriend = ({ friendId, name, userPicturePath }) => {
     </div>
   );
 };
+
 export const UserPostContent = (props) => {
   return (
     <div className="object-scale-down object-center w-full px-4 overflow-hidden rounded-lg mainPost">
       <p className="py-2 caption text-l">{props.caption}</p>
       {props.picturePath && (
         <img
-          src={`http:localhost:3001/assets/${props.picturePath}`}
+          src={`http://localhost:3001/assets/${props.picturePath}`}
           className="object-scale-down object-center w-full"
         />
       )}
@@ -247,36 +240,41 @@ export const UserPostContent = (props) => {
 };
 
 export const PostReaction = (props) => {
+  const [bookMark, setBookMark] = useState(false);
   return (
     <div className="flex items-center justify-between w-full pt-3 pb-2 m-2 reaction">
-      <div className="postReaction">
-        <div onClick={props.likeClicked}>
+      <div className="flex postReaction">
+        <div
+          onClick={props.likeClicked}
+          className="flex items-center justify-center cursor-pointer"
+        >
           {props.isLiked ? (
-            <span className="ml-2 mr-5 text-3xl cursor-pointer material-symbols-outlined text-var(--secondary-dark)">
-              favorite
-            </span>
+            <i class="mx-2 text-3xl cursor-pointer  fa-solid fa-heart text-[var(--secondary-dark)]"></i>
           ) : (
-            <span className="ml-2 mr-5 text-3xl cursor-pointer material-symbols-outlined">
-              favorite
-            </span>
+            <i class="mx-2 text-3xl cursor-pointer  fa-regular fa-heart"></i>
           )}
-          <p>{props.likeCount}</p>
+          <p className="pr-1 mr-2">{props.likeCount}</p>
         </div>
-        <div onClick={props.commentCliked}>
-          <span className="mx-3 text-3xl cursor-pointer material-symbols-outlined">
+        <div
+          onClick={props.commentCliked}
+          className="flex items-center justify-center cursor-pointer"
+        >
+          <span className="mx-2 text-3xl cursor-pointer material-symbols-outlined">
             mode_comment
           </span>
           <p>{props.commentLength}</p>
         </div>
 
-        <span className="ml-5 mr-2 text-3xl cursor-pointer material-symbols-outlined">
+        <span className="mx-3 text-3xl cursor-pointer material-symbols-outlined">
           share
         </span>
       </div>
-      <div className="saveAsFav">
-        <span className="mr-5 text-3xl cursor-pointer material-symbols-outlined">
-          bookmark
-        </span>
+      <div className="saveAsFav" onClick={() => setBookMark(!bookMark)}>
+        {bookMark ? (
+          <i class="mr-5 text-3xl cursor-pointer fa-solid fa-bookmark text-[var(--primary-dark)]"></i>
+        ) : (
+          <i class="mr-5 text-3xl cursor-pointer fa-regular fa-bookmark"></i>
+        )}
       </div>
     </div>
   );
