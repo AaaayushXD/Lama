@@ -13,6 +13,9 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Dropzone from "react-dropzone";
 import { setLogin } from "../state";
+import dotenv from "dotenv"
+dotenv.config();
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
 
 const registerSchema = yup.object().shape({
   fullName: yup.string().required("required"),
@@ -61,13 +64,10 @@ export const AuthenticationForm = () => {
       formData.append(value, values[value]);
     }
     formData.append("picturePath", values.picture.name);
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    const savedUserResponse = await fetch(`${BACKEND_URL}/auth/register`, {
+      method: "POST",
+      body: formData,
+    });
     const savedUser = await savedUserResponse.json();
     console.log(savedUser);
     onSubmitProps.resetForm();
@@ -78,14 +78,11 @@ export const AuthenticationForm = () => {
   };
 
   const login = async (values, onSubmitProps) => {
-    const savedLoggedInResponse = await fetch(
-      "http://localhost:3001/auth/login",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      }
-    );
+    const savedLoggedInResponse = await fetch(`${BACKEND_URL}/auth/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(values),
+    });
     const loggedIn = await savedLoggedInResponse.json();
     onSubmitProps.resetForm();
     if (loggedIn) {

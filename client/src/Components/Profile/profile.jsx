@@ -5,6 +5,9 @@ import NavBar from "../NavBar/navBar";
 import { InfoDetail } from "../Home/homeComponents";
 import { PostsContainer } from "../Post/Post";
 import { UpdatePost } from "../Post/postComponents";
+import dotenv from "dotenv";
+dotenv.config();
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
 
 export const Profile = () => {
   const [user, setUser] = useState(null);
@@ -12,7 +15,7 @@ export const Profile = () => {
   const token = useSelector((state) => state.token);
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`${BACKEND_URL}/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -47,7 +50,7 @@ export const Profile = () => {
               >
                 <div className="flex flex-col items-center justify-center w-full h-full mr-7 nameContent md:flex-row">
                   <img
-                    src={`http://localhost:3001/assets/${user.picturePath}`}
+                    src={`${BACKEND_URL}/assets/${user.picturePath}`}
                     className="object-cover mx-3 my-1 w-[80px] h-[80px] lg:w-[50px] lg:h-[50px]"
                   />
                   <p className="hidden text-xl lg:block"> {user.fullName}</p>

@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "../state";
 import { UserFriend } from "../Post/postComponents.jsx";
+import dotenv from "dotenv";
+dotenv.config();
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
 
 export const UserWidget = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
@@ -16,7 +19,7 @@ export const UserWidget = ({ userId, picturePath }) => {
   const token = useSelector((state) => state.token);
 
   const getUser = async () => {
-    const response = await fetch(`http://localhost:3001/users/${userId}`, {
+    const response = await fetch(`${BACKEND_URL}/users/${userId}`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -63,7 +66,7 @@ export const NameContainer = (props) => {
     >
       <div className="flex items-center w-full h-full nameContent">
         <img
-          src={`http://localhost:3001/assets/${props.logo}`}
+          src={`${BACKEND_URL}/assets/${props.logo}`}
           style={{ width: `${props.imgSize}px`, height: `${props.imgSize}px` }}
           className="object-cover mx-3 my-1"
         />
@@ -116,7 +119,7 @@ export const ProfilePicture = (props) => {
       style={{ width: `${props.imgSize}px`, height: `${props.imgSize}px` }}
     >
       <img
-        src={`http://localhost:3001/assets/${props.picturePath}`}
+        src={`${BACKEND_URL}/assets/${props.picturePath}`}
         style={{ width: `${props.imgSize}px`, height: `${props.imgSize}px` }}
         className="object-cover rounded-full"
       />
@@ -131,7 +134,7 @@ export const FollowedFriendLists = ({ userId }) => {
 
   const getFriends = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
+      `${BACKEND_URL}/users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },

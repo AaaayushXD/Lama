@@ -6,6 +6,9 @@ import { setPosts } from "../state";
 import { setFriends } from "../state";
 import { useNavigate } from "react-router-dom";
 import { setPost } from "../state";
+import dotenv from "dotenv";
+dotenv.config();
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
 
 export const UpdatePost = ({ picturePath }) => {
   const dispatch = useDispatch();
@@ -24,7 +27,7 @@ export const UpdatePost = ({ picturePath }) => {
       formData.append("picturePath", image.name);
     }
 
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`${BACKEND_URL}/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
@@ -135,7 +138,7 @@ export const UserPostContainer = ({
   const isLiked = likes[loggedInUserId];
   const likeCount = Object.keys(likes).length;
   const patchLike = async () => {
-    const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
+    const response = await fetch(`${BACKEND_URL}/posts/${postId}/like`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -187,11 +190,12 @@ export const UserFriend = (props) => {
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
+  
   if (!friends) return;
   const isFriend = friends.find((friend) => friend._id === friendId);
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendId}`,
+      `${BACKEND_URL}/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
@@ -246,7 +250,7 @@ export const UserPostContent = (props) => {
       <p className="py-2 caption text-l">{props.caption}</p>
       {props.picturePath && (
         <img
-          src={`http://localhost:3001/assets/${props.picturePath}`}
+          src={`${BACKEND_URL}/assets/${props.picturePath}`}
           className="object-scale-down object-center w-full"
         />
       )}

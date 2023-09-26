@@ -2,6 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { UpdatePost, UserPostContainer } from "./postComponents";
 import { useEffect } from "react";
 import { setPosts } from "../state";
+import dotenv from "dotenv";
+dotenv.config();
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
 
 export const PostsContainer = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
@@ -9,7 +12,7 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`${BACKEND_URL}/posts`, {
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -19,7 +22,7 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
 
   const getUserPosts = async () => {
     const response = await fetch(
-      `http://localhost:3001/posts/${userId}/posts`,
+      `${BACKEND_URL}/posts/${userId}/posts`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
