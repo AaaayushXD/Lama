@@ -37,6 +37,7 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
     }
   }, []);
 
+  console.log(posts);
   return (
     <div className="min-w-[60%] m-2 p-4">
       {posts.map(
@@ -69,13 +70,12 @@ export const PostsContainer = ({ userId, isProfile = false }) => {
   );
 };
 
-
 export const MainContainer = () => {
   const { _id, picturePath } = useSelector((state) => state.user);
   return (
     <div className="w-full md:w-[80%] lg:w-[60%]">
       <UpdatePost picturePath={picturePath} />
-      <PostsContainer userId={_id} />
+      <PostsContainer userId={_id} isProfile={false} />
     </div>
   );
 };
