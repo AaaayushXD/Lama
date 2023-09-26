@@ -166,10 +166,10 @@ export const UserPostContainer = ({
         {isComment && (
           <div className="my-3 h-40px text-l">
             {comments.map((comment, i) => (
-              <div
-                key={`${fullName}-${i}`}
-              >
-                <p className="my-1 p-2 bg-[var(--surface-dark)] rounded-lg">{comment}</p>
+              <div key={`${fullName}-${i}`}>
+                <p className="my-1 p-2 bg-[var(--surface-dark)] rounded-lg">
+                  {comment}
+                </p>
               </div>
             ))}
           </div>
@@ -180,17 +180,18 @@ export const UserPostContainer = ({
   );
 };
 
-export const UserFriend = ({ friendId, name, userPicturePath }) => {
+export const UserFriend = (props) => {
+  const {friendId, name, userPicturePath} = props
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const friends = useSelector((state) => state.user.friends);
-
+  if (!friends) return;
   const isFriend = friends.find((friend) => friend._id === friendId);
   const patchFriend = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${_id}/${friendsId}`,
+      `http://localhost:3001/users/${_id}/${friendId}`,
       {
         method: "PATCH",
         headers: {
@@ -214,11 +215,25 @@ export const UserFriend = ({ friendId, name, userPicturePath }) => {
           navigate(0);
         }}
       />
-      <div className="action" onClick={() => patchFriend()}>
-        {isFriend ? (
-          <span className="material-symbols-outlined">person_remove</span>
+      <div className="action">
+        {friendId === _id ? (
+          <div>
+            <span className="material-symbols-outlined cursor-pointer hover:text-[var(--modal-dark)]">
+              more_vert
+            </span>
+          </div>
         ) : (
-          <span className="material-symbols-outlined">person_add</span>
+          <div onClick={() => patchFriend()}>
+            {isFriend ? (
+              <span className="cursor-pointer material-symbols-outlined hover:text-[var(--secondary-dark)]">
+                person_remove
+              </span>
+            ) : (
+              <span className="cursor-pointer material-symbols-outlined hover:text-[var(--primary-dark)]">
+                person_add
+              </span>
+            )}
+          </div>
         )}
       </div>
     </div>
@@ -249,9 +264,9 @@ export const PostReaction = (props) => {
           className="flex items-center justify-center cursor-pointer"
         >
           {props.isLiked ? (
-            <i class="mx-2 text-3xl cursor-pointer  fa-solid fa-heart text-[var(--secondary-dark)]"></i>
+            <i className="mx-2 text-3xl cursor-pointer  fa-solid fa-heart text-[var(--secondary-dark)]"></i>
           ) : (
-            <i class="mx-2 text-3xl cursor-pointer  fa-regular fa-heart"></i>
+            <i className="mx-2 text-3xl cursor-pointer fa-regular fa-heart"></i>
           )}
           <p className="pr-1 mr-2">{props.likeCount}</p>
         </div>
@@ -271,9 +286,9 @@ export const PostReaction = (props) => {
       </div>
       <div className="saveAsFav" onClick={() => setBookMark(!bookMark)}>
         {bookMark ? (
-          <i class="mr-5 text-3xl cursor-pointer fa-solid fa-bookmark text-[var(--primary-dark)]"></i>
+          <i className="mr-5 text-3xl cursor-pointer fa-solid fa-bookmark text-[var(--primary-dark)]"></i>
         ) : (
-          <i class="mr-5 text-3xl cursor-pointer fa-regular fa-bookmark"></i>
+          <i className="mr-5 text-3xl cursor-pointer fa-regular fa-bookmark"></i>
         )}
       </div>
     </div>

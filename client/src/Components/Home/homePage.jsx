@@ -1,4 +1,4 @@
-import { OtherUsers, UserWidget } from "./homeComponents";
+import { FollowedFriendLists,  UserWidget } from "./homeComponents";
 import "../../index.css";
 import { MainContainer } from "../Post/Post";
 import NavBar from "../NavBar/navBar";
@@ -13,7 +13,7 @@ export const HomeContainer = () => {
       <div className="flex w-full h-full">
         <UserWidget userId={_id} picturePath={picturePath} />
         <MainContainer />
-        <OtherUsers />
+        <FollowedFriendLists userId={_id} />
       </div>
     </div>
   );

@@ -3,13 +3,13 @@ import LOGO from "../../assets/aayushlogo.png";
 import { useNavigate } from "react-router-dom";
 import { setMode, setLogout } from "../state";
 import { useDispatch, useSelector } from "react-redux";
+import { ProfilePicture } from "../Home/homeComponents";
 
 const NavBar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const user = useSelector((state) => state.user);
-  // const fullName = user.fullName;
+  const user = useSelector((state) => state.user);
 
   return (
     <div className=" navContainer h-[80px] w-full flex justify-between items-center  bg-[var(--navbar-dark)]">
@@ -22,7 +22,7 @@ const NavBar = () => {
           />
         </a>
       </div>
-      <div className="hidden gap-8 mx-4 cursor-pointer md:flex userIcon">
+      <div className="items-center hidden gap-8 mx-4 cursor-pointer md:flex userIcon">
         <span className="text-4xl material-symbols-outlined text-[var(--text-dark)] hover:text-[var(--bgText-dark)]">
           Notifications
         </span>
@@ -32,12 +32,13 @@ const NavBar = () => {
         >
           Chat
         </span>
-        <span
-          className="text-4xl material-symbols-outlined text-[var(--text-dark)] hover:text-[var(--bgText-dark)]"
-          onClick={() => navigate("/profile")}
-        >
-          account_circle
-        </span>
+        <div className="flex items-center justify-center">
+          <ProfilePicture
+            imgSize="45"
+            userId={user._id}
+            picturePath={user.picturePath}
+          />
+        </div>
         <span
           className="text-4xl material-symbols-outlined text-[var(--secondary-dark)] hover:text-[var(--secondary-light)]"
           onClick={() => {
