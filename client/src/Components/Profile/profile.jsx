@@ -5,9 +5,13 @@ import NavBar from "../NavBar/navBar";
 import { InfoDetail } from "../Home/homeComponents";
 import { PostsContainer } from "../Post/Post";
 import { UpdatePost } from "../Post/postComponents";
-import dotenv from "dotenv";
-dotenv.config();
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+// import dotenv from "dotenv";
+// dotenv.config();
+// const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+
+const BACKEND_URL =
+  "https://lama-server-9kdt.onrender.com" || "http://localhost:3001";
+
 
 export const Profile = () => {
   const [user, setUser] = useState(null);

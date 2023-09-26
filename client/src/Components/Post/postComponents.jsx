@@ -6,9 +6,13 @@ import { setPosts } from "../state";
 import { setFriends } from "../state";
 import { useNavigate } from "react-router-dom";
 import { setPost } from "../state";
-import dotenv from "dotenv";
-dotenv.config();
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+// import dotenv from "dotenv";
+// dotenv.config();
+// const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+
+
+const BACKEND_URL =
+  "https://lama-server-9kdt.onrender.com" || "http://localhost:3001";
 
 export const UpdatePost = ({ picturePath }) => {
   const dispatch = useDispatch();

@@ -2,9 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { UpdatePost, UserPostContainer } from "./postComponents";
 import { useEffect } from "react";
 import { setPosts } from "../state";
-import dotenv from "dotenv";
-dotenv.config();
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+// import dotenv from "dotenv";
+// dotenv.config();
+// const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+
+const BACKEND_URL =
+  "https://lama-server-9kdt.onrender.com" || "http://localhost:3001";
+
 
 export const PostsContainer = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();

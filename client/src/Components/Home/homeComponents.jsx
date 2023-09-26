@@ -9,9 +9,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { setFriends } from "../state";
 import { UserFriend } from "../Post/postComponents.jsx";
-import dotenv from "dotenv";
-dotenv.config();
-const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+// import dotenv from "dotenv";
+// dotenv.config();
+// const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:3001";
+
+const BACKEND_URL =
+  "https://lama-server-9kdt.onrender.com" || "http://localhost:3001";
+
 
 export const UserWidget = ({ userId, picturePath }) => {
   const [user, setUser] = useState(null);
